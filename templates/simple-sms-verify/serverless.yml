@@ -1,0 +1,29 @@
+# serverless.yml
+
+cognitoUserPool:
+  component: '@serverless/aws-cognito'
+  inputs:
+    region: us-west-2
+    # Docs: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_UserPoolType.html
+    type: SIMPLE_SMS_VERIFY
+    userPoolParams:
+      PoolName: app-users-dev
+      MfaConfiguration: 'OFF'  # OFF | ON | OPTIONAL
+      Policies:
+        PasswordPolicy:
+          MinimumLength: 8  # 'NUMBER_VALUE'
+          RequireLowercase: true  # true || false
+          RequireNumbers: true  # true || false
+          RequireSymbols: false  # true || false
+          RequireUppercase: true  # true || false
+      # SmsConfiguration:
+      #   SnsCallerArn: 'STRING_VALUE'  # /* required */
+      #   ExternalId: 'STRING_VALUE'
+      UserPoolTags:
+        'Owner': 'Ryan Jones'
+        'Application': 'App'
+      UsernameAttributes:
+        - phone_number
+      VerificationMessageTemplate:
+        DefaultEmailOption: CONFIRM_WITH_LINK  # CONFIRM_WITH_LINK | CONFIRM_WITH_CODE
+        SmsMessage: 'Welcome to our app, please click the link {####}'

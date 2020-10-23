@@ -1,0 +1,5 @@
+cognitoUserPool:
+  component: '../../../aws-cognito'
+  inputs:
+    region: us-east-1
+    authTemplate: COGNITO_USER_POOL
